@@ -5,31 +5,46 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
+import { Anime } from "../interfaces/anime.interface";
+import useAnimeStorage from "../hooks/useAnimeStorage";
 
-const CustomCard = () => {
+interface ICustomCard {
+  data: Anime;
+  addAction?: () => void;
+  removeAction?: () => void;
+}
+
+const CustomCard = ({ addAction, removeAction, data }: ICustomCard) => {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
         <CardMedia
+          key={data?.id}
           component="img"
-          height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          height={400}
+          image={data?.coverImage.large}
           alt="green iguana"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            {data?.title?.english || data?.title?.romaji}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }}>
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {data?.title.english}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
+        {addAction && (
+          <Button onClick={addAction} size="small" color="primary">
+            add favorite
+          </Button>
+        )}
+        {removeAction && (
+          <Button onClick={removeAction} size="small" color="primary">
+            delete favorite
+          </Button>
+        )}
       </CardActions>
     </Card>
   );
