@@ -6,7 +6,6 @@ import Button from "@mui/material/Button";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
 import { Anime } from "../interfaces/anime.interface";
-import useAnimeStorage from "../hooks/useAnimeStorage";
 
 interface ICustomCard {
   data: Anime;

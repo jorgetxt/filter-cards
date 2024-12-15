@@ -4,7 +4,6 @@ import { Anime, AnimeListResponse } from "../interfaces/anime.interface";
 
 const graphQLClient = new GraphQLClient("https://graphql.anilist.co");
 
-// Define la consulta GraphQL
 const GET_ANIME_LIST = gql`
   query GetAnimeList($page: Int, $perPage: Int, $search: String) {
     Page(page: $page, perPage: $perPage) {
@@ -22,7 +21,6 @@ const GET_ANIME_LIST = gql`
   }
 `;
 
-// Define el hook para obtener datos
 export const useAnimeList = (
   page: number,
   perPage: number,

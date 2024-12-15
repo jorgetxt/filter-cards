@@ -9,15 +9,17 @@ import useAnimeStorage from "../hooks/useAnimeStorage";
 // Componente principal
 const AnimeList = () => {
   const [search, setSearch] = React.useState(
-    localStorage.getItem("animeSearch") || ""
+    localStorage.getItem("animeSearch") || "naruto"
   );
+
+  const { addAnime, animes } = useAnimeStorage();
 
   const debouncedSearch = useDebounce(search, 500);
 
   const { data, isLoading } = useAnimeList(1, 20, debouncedSearch);
 
   return (
-    <Grid container spacing={2}>
+    <Grid container size={12} spacing={2}>
       <Grid size={{ xs: 12, md: 6, lg: 4 }}>
         <TextField
           type="text"
@@ -29,12 +31,18 @@ const AnimeList = () => {
       </Grid>
 
       <Grid container size={12}>
+        {!isLoading && !data?.length && "No hay resultado que mostrar"}
         {isLoading ? (
           <>...</>
         ) : (
           data?.map((anime) => (
             <Grid size={{ xs: 12, sm: 6, md: 4, lg: 2 }} justifyItems="center">
-              <CustomCard data={anime} />
+              <CustomCard
+                data={anime}
+                {...(!animes.some((e) => e.id === anime.id) && {
+                  addAction: () => addAnime(anime),
+                })}
+              />
             </Grid>
           ))
         )}

@@ -3,10 +3,10 @@ import useAnimeStorage from "../hooks/useAnimeStorage";
 import CustomCard from "./CustomCard";
 
 const FavoriteList = () => {
-  const { animes } = useAnimeStorage();
+  const { animes, removeAnime } = useAnimeStorage();
   return animes?.map((anime) => (
     <Grid size={{ xs: 12, sm: 6, md: 4, lg: 2 }} justifyItems="center">
-      <CustomCard data={anime} />
+      <CustomCard data={anime} removeAction={() => removeAnime(anime.id)} />
     </Grid>
   ));
 };

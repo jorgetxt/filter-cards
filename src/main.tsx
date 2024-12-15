@@ -15,6 +15,7 @@ const App: React.FC = () => (
     <QueryClientProvider client={queryClient}>
       <Routes>
         <Route path="/" element={<AnimeScreen />}>
+          <Route index element={<AnimeList />} />
           <Route index path="list" element={<AnimeList />} />
           <Route path="favorites" element={<FavoriteList />} />
         </Route>
